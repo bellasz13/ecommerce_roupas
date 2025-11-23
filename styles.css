@@ -165,7 +165,6 @@ footer {
 /* css - pag de roupa fem */
 
 .categoria-feminino {
-  font-family: 'Times New Roman', serif;
   font-size: 2rem;
   text-align: center;
   margin: 38px 0 32px 0;
@@ -224,7 +223,6 @@ footer {
 }
 
 .produto-card .preco {
-  font-family: 'Times New Roman', serif;
   font-size: 1.18rem;
   color: #b28758;
   font-style: italic;
@@ -279,7 +277,6 @@ footer {
 /* css - pag de roupa masc */
 
 .categoria-masculino {
-  font-family: 'Times New Roman', serif;
   font-size: 2rem;
   text-align: center;
   margin: 38px 0 32px 0;
@@ -330,3 +327,253 @@ footer {
     font-size: 1rem;
   }
 }
+
+/* css - pag de acessorios */
+
+.categoria-acessorios {
+  font-size: 2rem;
+  text-align: center;
+  margin: 38px 0 32px 0;
+  letter-spacing: 0.02em;
+}
+
+.produtos-acessorios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto 56px auto;
+  padding: 0 24px;
+}
+
+/* responsividade */
+@media (max-width: 950px) {
+  .produtos-acessorios {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+  }
+  .produto-card > img {
+    height: 185px;
+  }
+  .logo {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .main-header {
+    padding: 10px 12px;
+    min-height: 45px;
+  }
+  .categoria-acessorios {
+    font-size: 2.1rem;
+    margin: 1.1em 0 .7em 0;
+  }
+  .produtos-acessorios {
+    padding: 0 2vw;
+    gap: 14px;
+  }
+  .produto-card > img {
+    max-width: 100%;
+    height: 140px;
+  }
+  .produto-card h3 {
+    font-size: 1rem;
+  }
+}
+
+/* css - pag carrinho */
+
+.carrinho-vazio-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+.carrinho-vazio-titulo {
+  font-size: 2.8rem;
+  color: #543820;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.carrinho-vazio-subtitulo {
+  font-size: 1.5rem;
+  color: #b28758;
+  margin-bottom: 42px;
+  text-align: center;
+  font-weight: 400;
+}
+
+@media (max-width: 700px) {
+  .carrinho-vazio-main {
+    padding-top: 0;
+    min-height: 60vh;
+  }
+  .carrinho-vazio-titulo {
+    font-size: 2rem;
+    margin-top: 18px;
+  }
+  .carrinho-vazio-subtitulo {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+  }
+}
+
+/* css - pag de login */
+
+.login-container {
+  background: #ccb897;
+  border-radius: 28px;
+  margin: 48px auto;
+  max-width: 460px;
+  padding: 42px 36px 26px 36px;
+  box-shadow: 0 4px 26px rgba(80, 52, 20, 0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-title {
+  font-size: 2.4rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 22px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-input {
+  width: 100%;
+  max-width: 400px;
+  height: 44px;
+  border-radius: 7px;
+  border: 1.5px solid #8d6c45;
+  margin-bottom: 22px;
+  padding: 0 16px;
+  font-size: 1.2rem;
+  color: #543820;
+  background: #f7ecd7;
+  font-family: 'Times New Roman', serif;
+  font-weight: 400;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.login-input:focus {
+  border-color: #b28758;
+  background: #fff9f2;
+}
+
+.login-link {
+  width: 100%;
+  text-align: right;
+  font-size: 1rem;
+  color: #543820;
+  text-decoration: none;
+  margin-bottom: 22px;
+  display: block;
+}
+.login-link:hover {
+  text-decoration: underline;
+  color: #b28758;
+}
+
+.login-button {
+  width: 80%;
+  height: 48px;
+  border-radius: 22px;
+  background: #86613D;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-family: 'Times New Roman', serif;
+  transition: background 0.2s, color 0.2s;
+}
+.login-button:hover {
+  background: #b28758;
+  color: #543820;
+}
+
+.login-register {
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+  margin-top: 16px;
+}
+
+.register-link {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.register-link:hover {
+  color: #543820;
+}
+
+.campo-senha {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.icone-olho {
+  position: absolute;
+  right: 12px;
+  top: 35%;
+  transform: translateY(-50%);
+  width: 20px;      
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.icone-olho:hover {
+  opacity: 1;
+}
+
+@media (max-width: 620px) {
+  .login-container {
+    max-width: 98vw;
+    padding: 22px 8vw 18px 8vw;
+    margin: 28px auto;
+  }
+  .login-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+}
+
+/* css - pag de cadastro */
+
+.login-input[type="date"] {
+  color: #543820;
+  font-family: 'Times New Roman', serif;
+}
+
+@media (max-width: 620px) {
+  .login-container {
+    max-width: 98vw;
+    padding: 22px 8vw 18px 8vw;
+    margin: 28px auto;
+  }
+  .login-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+}
+
+/* menu lateral */
+
+
