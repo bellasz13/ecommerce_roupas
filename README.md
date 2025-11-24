@@ -6,16 +6,14 @@ O Trend Store é uma plataforma de e-commerce dedicada à venda de roupas, ofere
 
 ## Funcionalidade
 
-* Catálogo de produtos com categorias e filtros
+* Catálogo de produtos de roupas femininas, masculinas e acessórios
 * Cadastro e login de usuários
 * Carrinho de compras com controle de quantidade e preços
 * Processo de checkout com opções de pagamento
-* Área administrativa para gerenciamento de estoque e pedidos
 
 ## Tecnologias Utilizadas
 
 * Backend: Node.js 
-* Banco de dados: SQLite
+* Banco de dados: My SQL
 * Frontend: HTML, CSS, JavaScript 
 * Controle de versão: Git + GitHub.
-* Integração contínua: SonarQube para métricas de qualidade, testes automatizados.
