@@ -1,0 +1,101 @@
+CREATE DATABASE IF NOT EXISTS trendstore
+  DEFAULT CHARACTER SET utf8mb4
+  DEFAULT COLLATE utf8mb4_unicode_ci;
+
+USE trendstore;
+
+CREATE TABLE clientes (
+  id_cliente       INT PRIMARY KEY AUTO_INCREMENT,
+  nome_completo    VARCHAR(150) NOT NULL,
+  email            VARCHAR(120) NOT NULL UNIQUE,
+  telefone         VARCHAR(20),
+  cpf              CHAR(11) NOT NULL UNIQUE,
+  data_nascimento  DATE,
+  senha_hash       VARCHAR(255) NOT NULL,
+  criado_em        DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE enderecos (
+  id_endereco   INT PRIMARY KEY AUTO_INCREMENT,
+  id_cliente    INT NOT NULL,
+  apelido       VARCHAR(50),
+  cep           VARCHAR(15),
+  logradouro    VARCHAR(150),
+  numero        VARCHAR(10),
+  complemento   VARCHAR(80),
+  bairro        VARCHAR(80),
+  cidade        VARCHAR(80),
+  estado        VARCHAR(2),
+  pais          VARCHAR(50) DEFAULT 'Brasil',
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+CREATE TABLE produtos (
+  id_produto    INT PRIMARY KEY,
+  nome          VARCHAR(150) NOT NULL,
+  preco         DECIMAL(10,2) NOT NULL,
+  descricao     TEXT,
+  imagem        VARCHAR(255),
+  categoria     VARCHAR(50)
+);
+
+CREATE TABLE cartoes (
+  id_cartao        INT PRIMARY KEY AUTO_INCREMENT,
+  id_cliente       INT NOT NULL,
+  apelido          VARCHAR(50),
+  bandeira         VARCHAR(30),
+  ultimos_digitos  CHAR(4) NOT NULL,
+  validade_mes     TINYINT,
+  validade_ano     SMALLINT,
+  token_gateway    VARCHAR(255),
+  criado_em        DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+CREATE TABLE carrinhos (
+  id_carrinho   INT PRIMARY KEY AUTO_INCREMENT,
+  id_cliente    INT NOT NULL,
+  atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+CREATE TABLE itens_carrinho (
+  id_item_carrinho INT PRIMARY KEY AUTO_INCREMENT,
+  id_carrinho      INT NOT NULL,
+  id_produto       INT NOT NULL,
+  quantidade       INT NOT NULL,
+  preco_unitario   DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (id_carrinho) REFERENCES carrinhos(id_carrinho),
+  FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+CREATE TABLE pedidos (
+  id_pedido          INT PRIMARY KEY AUTO_INCREMENT,
+  id_cliente         INT NOT NULL,
+  id_endereco_entrega INT NOT NULL,
+  status             VARCHAR(20) DEFAULT 'em_processamento',
+  data_pedido        DATETIME DEFAULT CURRENT_TIMESTAMP,
+  valor_total        DECIMAL(10,2),
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+  FOREIGN KEY (id_endereco_entrega) REFERENCES enderecos(id_endereco)
+);
+
+CREATE TABLE itens_pedido (
+  id_item_pedido INT PRIMARY KEY AUTO_INCREMENT,
+  id_pedido      INT NOT NULL,
+  id_produto     INT NOT NULL,
+  quantidade     INT NOT NULL,
+  preco_unitario DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+  FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+CREATE TABLE favoritos (
+  id_favorito  INT PRIMARY KEY AUTO_INCREMENT,
+  id_cliente   INT NOT NULL,
+  id_produto   INT NOT NULL,
+  criado_em    DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (id_cliente, id_produto),
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+  FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);

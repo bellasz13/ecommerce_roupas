@@ -8,37 +8,109 @@
 </head>
 <body>
 
-  <header class="main-header">
+<header class="main-header">
   <div class="menu-icon">
-    <img src="imagens/icones/menu.png" alt="Menu" width="28" height="28">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Menu" width="28" height="28">
+    </a>
   </div>
 
-  <div class="logo">TrendStore</div>
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
 
   <div class="header-icon">
+    <a href="favorito.html">
+      <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
     <a href="carrinho.html">
       <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
     </a>
   </div>
 </header>
 
-  <main>
-    <div class="login-container">
-      <h1 class="login-title">Entre com email e senha</h1>
-      <form class="login-form">
-        <input type="email" placeholder="email@email.com" class="login-input" required>
-        <div class="campo-senha">
-        <input type="password" id="senha" placeholder="senha" class="login-input" required>
-            <img src="imagens/icones/olho-senha.png" id="toggleSenha" alt="Mostrar senha" class="icone-olho">
-        </div>
-        <a href="#" class="login-link">Esqueci minha senha</a>
-        <button type="submit" class="login-button">Entrar</button>
-      </form>
-      <p class="login-register">
-        Não possui uma conta? <a href="#" class="register-link">Cadastre-se agora mesmo</a>
-      </p>
-    
-    </div>
-  </main>
+<main>
+  <div class="login-container">
+    <h1 class="login-title">Entre com email e senha</h1>
+
+    <form id="form-login" class="login-form">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="email@email.com"
+        class="login-input"
+        required
+      >
+
+      <div class="campo-senha">
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          placeholder="senha"
+          class="login-input"
+          required
+        >
+        <img
+          src="imagens/icones/olho-senha.png"
+          id="toggleSenha"
+          alt="Mostrar senha"
+          class="icone-olho"
+        >
+      </div>
+
+      <a href="#" class="login-link">Esqueci minha senha</a>
+      <button type="submit" class="login-button">Entrar</button>
+    </form>
+
+    <p class="login-register">
+      Não possui uma conta?
+      <a href="cadastro.html" class="register-link">Cadastre-se agora mesmo</a>
+    </p>
+  </div>
+</main>
+
+<script>
+  document.getElementById('toggleSenha').addEventListener('click', function () {
+    const input = document.getElementById('senha');
+    input.type = input.type === 'password' ? 'text' : 'password';
+  });
+
+  const form = document.getElementById('form-login');
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    try {
+      const resp = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha })
+      });
+
+      if (!resp.ok) {
+        const erro = await resp.json().catch(() => ({}));
+        alert(erro.erro || 'Erro ao fazer login.');
+        return;
+      }
+
+      const dados = await resp.json();
+
+      localStorage.setItem('usuarioLogado', 'true');
+      localStorage.setItem('idCliente', dados.id_cliente);
+      localStorage.setItem('nomeCliente', dados.nome_completo);
+
+      window.location.href = 'perfil.html';
+    } catch (e) {
+      console.error(e);
+      alert('Não foi possível conectar ao servidor. Verifique se a API está rodando.');
+    }
+  });
+</script>
+
 </body>
 </html>

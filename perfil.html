@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrendStore - Meu Perfil</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <script>
+    const logado = localStorage.getItem('usuarioLogado');
+    if (logado !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <header class="main-header">
+    <div class="menu-icon">
+      <a href="perfil.html">
+        <img src="imagens/icones/user.png" alt="Perfil" width="28" height="28">
+      </a>
+    </div>
+
+    <div class="logo">
+      <a href="index.html">TrendStore</a>
+    </div>
+
+    <div class="header-icon">
+      <a href="favorito.html">
+        <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+      </a>
+      <a href="carrinho.html">
+        <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="profile-container">
+      <h1 class="profile-title">Meu Perfil</h1>
+
+      <ul class="profile-menu">
+        <li><a href="meu-cadastro.html">Meu cadastro</a></li>
+        <li><a href="meus-pedidos.html">Meus pedidos</a></li>
+        <li><a href="meus-enderecos.html">Meus endereços</a></li>
+        <li><a href="#" id="logout" class="logout-link">Sair</a></li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    const logoutLink = document.getElementById('logout');
+
+    logoutLink.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      localStorage.removeItem('usuarioLogado');
+      localStorage.removeItem('idCliente');
+      localStorage.removeItem('nomeCliente');
+
+      window.location.href = 'login.html';
+    });
+  </script>
+
+</body>
+</html>
+

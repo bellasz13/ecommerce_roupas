@@ -10,18 +10,124 @@
 
 <header class="main-header">
   <div class="menu-icon">
-    <img src="imagens/icones/menu.png" alt="Menu" width="28" height="28">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Menu" width="28" height="28">
+    </a>
   </div>
 
-  <div class="logo">TrendStore</div>
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
+  <div class="header-icon">
+    <a href="favorito.html">
+      <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
+    <a href="carrinho.html">
+      <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
+    </a>
+  </div>
 </header>
 
-<main class="carrinho-vazio-main">
-    <h1 class="carrinho-vazio-titulo">Seu carrinho está vazio :(</h1>
-    <p class="carrinho-vazio-subtitulo">Comece adicionando um produto</p>
-    <div class="carrinho-icon">
-        <img src="imagens/icones/carrinho-add.png" alt="Carrinho" width="200">
-    </div>
+<main id="conteudo-carrinho">
+  
 </main>
+
+<script>
+  function getCarrinho() {
+    const salvo = localStorage.getItem('carrinhoTrendStore');
+    return salvo ? JSON.parse(salvo) : [];
+  }
+
+  function salvarCarrinho(lista) {
+    localStorage.setItem('carrinhoTrendStore', JSON.stringify(lista));
+  }
+
+  function removerItemCarrinho(idProduto, cor, tamanho) {
+    let carrinho = getCarrinho();
+    carrinho = carrinho.filter(item =>
+      !(item.id === idProduto &&
+        (cor ? item.cor === cor : true) &&
+        (tamanho ? item.tamanho === tamanho : true)
+      )
+    );
+    salvarCarrinho(carrinho);
+  }
+
+  function carregarCarrinhoLocal() {
+    const main = document.getElementById('conteudo-carrinho');
+    const itens = getCarrinho();
+
+    if (!itens || itens.length === 0) {
+      main.innerHTML = `
+        <section class="carrinho-vazio-main">
+          <h1 class="carrinho-vazio-titulo">Seu carrinho está vazio :(</h1>
+          <p class="carrinho-vazio-subtitulo">Comece adicionando um produto</p>
+          <div class="carrinho-icon">
+            <img src="imagens/icones/carrinho-add.png" alt="Carrinho" width="200">
+          </div>
+        </section>
+      `;
+      return;
+    }
+
+    let total = 0;
+    itens.forEach(item => {
+      total += item.quantidade * Number(item.preco);
+    });
+
+    const itensHtml = itens.map(item => `
+      <div class="carrinho-item">
+        <img src="${item.imagem}" alt="${item.nome}" class="carrinho-item-imagem">
+        <div class="carrinho-item-info">
+          <h3>${item.nome}</h3>
+          ${item.cor ? `<p>Cor: ${item.cor}</p>` : ''}
+          ${item.tamanho ? `<p>Tamanho: ${item.tamanho}</p>` : ''}
+          <p>Quantidade: ${item.quantidade}</p>
+          <p>Preço: R$ ${Number(item.preco).toFixed(2).replace('.', ',')}</p>
+          <button
+            class="btn-remover"
+            data-id="${item.id}"
+            data-cor="${item.cor || ''}"
+            data-tamanho="${item.tamanho || ''}"
+          >
+            Remover
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    main.innerHTML = `
+      <section class="carrinho-cheio">
+        <h1 class="carrinho-titulo">Seu carrinho</h1>
+        <div class="carrinho-itens">
+          ${itensHtml}
+        </div>
+        <div class="carrinho-resumo">
+          <p>Total: R$ ${total.toFixed(2).replace('.', ',')}</p>
+          <button class="btn-comprar">Finalizar compra</button>
+        </div>
+      </section>
+    `;
+
+    document.querySelectorAll('.btn-remover').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id      = btn.getAttribute('data-id');
+        const cor     = btn.getAttribute('data-cor') || null;
+        const tamanho = btn.getAttribute('data-tamanho') || null;
+
+        removerItemCarrinho(id, cor, tamanho);
+        carregarCarrinhoLocal();
+      });
+    });
+    const btnFinalizar = document.getElementById('btn-finalizar');
+    if (btnFinalizar) {
+      btnFinalizar.addEventListener('click', () => {
+        window.location.href = 'checkout.html';
+    });
+  }
+}
+  carregarCarrinhoLocal();
+</script>
+
 </body>
 </html>

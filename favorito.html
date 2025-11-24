@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrendStore - Favoritos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="main-header">
+  <div class="menu-icon">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Menu" width="28" height="28">
+    </a>
+  </div>
+
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
+  <div class="header-icon">
+    <a href="favorito.html">
+      <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
+    <a href="carrinho.html">
+      <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
+    </a>
+  </div>
+</header>
+
+<main id="conteudo-favoritos"></main>
+
+<script>
+
+  function getFavoritos() {
+    const salvo = localStorage.getItem('favoritosTrendStore');
+    return salvo ? JSON.parse(salvo) : [];
+  }
+
+  function salvarFavoritos(lista) {
+    localStorage.setItem('favoritosTrendStore', JSON.stringify(lista));
+  }
+
+  function removerFavorito(idProduto) {
+    let favs = getFavoritos();
+    favs = favs.filter(id => id !== idProduto);
+    salvarFavoritos(favs);
+  }
+
+  function getCarrinho() {
+    const salvo = localStorage.getItem('carrinhoTrendStore');
+    return salvo ? JSON.parse(salvo) : [];
+  }
+
+  function salvarCarrinho(lista) {
+    localStorage.setItem('carrinhoTrendStore', JSON.stringify(lista));
+  }
+
+  function adicionarAoCarrinhoSimples(produtoId, nome, preco, imagem) {
+    const carrinho = getCarrinho();
+    const index = carrinho.findIndex(item => item.id === produtoId);
+
+    if (index === -1) {
+      carrinho.push({
+        id: produtoId,
+        nome,
+        preco,
+        imagem,
+        quantidade: 1
+      });
+    } else {
+      carrinho[index].quantidade += 1;
+    }
+
+    salvarCarrinho(carrinho);
+  }
+
+  function getFavoritosDetalhados() {
+    const salvo = localStorage.getItem('favoritosDetalhadosTrendStore');
+    return salvo ? JSON.parse(salvo) : [];
+  }
+
+  function salvarFavoritosDetalhados(lista) {
+    localStorage.setItem('favoritosDetalhadosTrendStore', JSON.stringify(lista));
+  }
+
+  function removerFavoritoDetalhado(idProduto) {
+    let itens = getFavoritosDetalhados();
+    itens = itens.filter(item => item.id !== idProduto);
+    salvarFavoritosDetalhados(itens);
+  }
+
+  function carregarFavoritosLocal() {
+    const main = document.getElementById('conteudo-favoritos');
+    const ids = getFavoritos();
+    const itens = getFavoritosDetalhados().filter(item => ids.includes(item.id));
+
+    if (!itens || itens.length === 0) {
+      main.innerHTML = `
+        <section class="carrinho-vazio-main">
+          <h1 class="carrinho-vazio-titulo">Você não possui nenhum favorito salvo :(</h1>
+          <p class="carrinho-vazio-subtitulo">Comece favoritando um produto</p>
+          <div class="carrinho-icon">
+            <img src="imagens/icones/favorito-preto.png" alt="Favorito" width="200">
+          </div>
+        </section>
+      `;
+      return;
+    }
+
+    const cardsHtml = itens.map(item => `
+      <div class="favorito-item">
+        <div class="produto-card">
+          <div class="icones-produto">
+            <img src="imagens/icones/favorito-cheio.png"
+                class="icon-heart-remover"
+                data-id="${item.id}"
+                alt="Remover dos favoritos">
+            <img src="imagens/icones/carrinho-add.png"
+                class="icon-cart-add"
+                data-id="${item.id}"
+                alt="Adicionar ao carrinho">
+          </div>
+          <a href="produto.html?id=${item.id}">
+            <img src="${item.imagem}" alt="${item.nome}" width="200">
+            <h3>${item.nome}</h3>
+          </a>
+          <div class="preco">${item.precoTexto}</div>
+          <div class="parcelas">${item.parcelamento || ''}</div>
+        </div>
+      </div>
+    `).join('');
+
+
+    main.innerHTML = `
+      <section class="produtos-favoritos">
+        <h1 class="categoria-favoritos">Seus favoritos</h1>
+        <div class="lista-favoritos">
+          ${cardsHtml}
+        </div>
+      </section>
+    `;
+
+    document.querySelectorAll('.icon-heart-remover').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const id = btn.getAttribute('data-id');
+        removerFavorito(id);
+        removerFavoritoDetalhado(id);
+        carregarFavoritosLocal();
+      });
+    });
+
+    document.querySelectorAll('.icon-cart-add').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const id = btn.getAttribute('data-id');
+        const item = getFavoritosDetalhados().find(f => f.id === id);
+        if (!item) return;
+
+        const precoNumero = Number(item.precoTexto.replace('.', '').replace(',', '.'));
+
+        adicionarAoCarrinhoSimples(id, item.nome, precoNumero, item.imagem);
+        alert('Produto adicionado ao carrinho!');
+      });
+    });
+  }
+
+  carregarFavoritosLocal();
+</script>
+
+</body>
+</html>

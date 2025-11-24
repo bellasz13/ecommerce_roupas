@@ -10,15 +10,18 @@
 
 <header class="main-header">
   <div class="menu-icon">
-    <a href="menu.html">
-      <img src="imagens/icones/menu.png" alt="Menu" width="28" height="28">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Menu" width="28" height="28">
     </a>
   </div>
 
-  <div class="logo">TrendStore</div>
-
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
   <div class="header-icon">
-    <!-- usuário - tirei da barra superior e deixei apenas no botão lateral-->
+    <a href="favorito.html">
+        <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
     <a href="carrinho.html">
       <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
     </a>
@@ -48,28 +51,197 @@
 <section class="products-section">
   <h2>Produtos em Destaque</h2>
   <div class="product-list">
-    <div class="product-card">
-      <img src="imagens/roupas-fem/i1.jpg" alt="Produto 1" />
+    <a href="produto.html?id=1" class="produto-card">
+      <div class="icones-produto">
+        <img src="imagens/icones/favorito-preto.png" class="icon-heart" alt="Favoritar">
+        <img src="imagens/icones/carrinho-add.png" class="icon-cart" alt="Comprar">
+      </div>
+      <img src="imagens/roupas-fem/i1.jpg" alt="Trio OFF" width="200">
       <h3>Trio OFF</h3>
-      <p class="price">R$ 779,90</p>
-    </div>
-    <div class="product-card">
-      <img src="imagens/roupas-fem/i2.jpg" alt="Produto 2" />
+      <div class="preco">779,90</div>
+      <div class="parcelas">ou 7x sem juros</div>
+    </a>
+
+    <a href="produto.html?id=2" class="produto-card">
+      <div class="icones-produto">
+        <img src="imagens/icones/favorito-preto.png" class="icon-heart" alt="Favoritar">
+        <img src="imagens/icones/carrinho-add.png" class="icon-cart" alt="Comprar">
+      </div>
+      <img src="imagens/roupas-fem/i2.jpg" alt="Conjunto White" width="200">
       <h3>Conjunto White</h3>
-      <p class="price">R$ 429,90</p>
-    </div>
-    <div class="product-card">
-      <img src="imagens/roupas-fem/i3.png" alt="Produto 3" />
+      <div class="preco">429,90</div>
+      <div class="parcelas">ou 4x sem juros</div>
+    </a>
+
+    <a href="produto.html?id=3" class="produto-card">
+      <div class="icones-produto">
+        <img src="imagens/icones/favorito-preto.png" class="icon-heart" alt="Favoritar">
+        <img src="imagens/icones/carrinho-add.png" class="icon-cart" alt="Comprar">
+      </div>
+      <img src="imagens/roupas-fem/i3.png" alt="Vestido Amarelo Terroso" width="200">
       <h3>Vestido Amarelo Terroso</h3>
-      <p class="price">R$ 1199,90</p>
-    </div>
-    <div class="product-card">
-      <img src="imagens/roupas-fem/i4.jpg" alt="Produto 4" />
+      <div class="preco">1199,90</div>
+      <div class="parcelas">ou 10x sem juros</div>
+    </a>
+
+    <a href="produto.html?id=4" class="produto-card">
+      <div class="icones-produto">
+        <img src="imagens/icones/favorito-preto.png" class="icon-heart" alt="Favoritar">
+        <img src="imagens/icones/carrinho-add.png" class="icon-cart" alt="Comprar">
+      </div>
+      <img src="imagens/roupas-fem/i4.jpg" alt="Vestido Burnet Red" width="200">
       <h3>Vestido Burnet Red</h3>
-      <p class="price">R$ 1559,90</p>
-    </div>
+      <div class="preco">1559,90</div>
+      <div class="parcelas">ou 10x sem juros</div>
+    </a>
   </div>
 </section>
+
+<script>
+  function getFavoritos() {
+    const salvo = localStorage.getItem('favoritosTrendStore');
+    return salvo ? JSON.parse(salvo) : [];
+  }
+
+  function salvarFavoritos(lista) {
+    localStorage.setItem('favoritosTrendStore', JSON.stringify(lista));
+  }
+
+  function toggleFavorito(produtoId) {
+    const favs = getFavoritos();
+    const index = favs.indexOf(produtoId);
+
+    if (index === -1) {
+      favs.push(produtoId);
+    } else {
+      favs.splice(index, 1);
+    }
+
+    salvarFavoritos(favs);
+    return favs.includes(produtoId);
+  }
+
+  function salvarFavoritoDetalhado(id, nome, precoTexto, imagem, parcelamento) {
+    const salvo = localStorage.getItem('favoritosDetalhadosTrendStore');
+    const lista = salvo ? JSON.parse(salvo) : [];
+    const existe = lista.find(item => item.id === id);
+    if (!existe) {
+      lista.push({ id, nome, precoTexto, imagem, parcelamento });
+      localStorage.setItem('favoritosDetalhadosTrendStore', JSON.stringify(lista));
+    }
+  }
+
+  function getCarrinho() {
+    const salvo = localStorage.getItem('carrinhoTrendStore');
+    return salvo ? JSON.parse(salvo) : [];
+  }
+
+  function salvarCarrinho(lista) {
+    localStorage.setItem('carrinhoTrendStore', JSON.stringify(lista));
+  }
+
+  function adicionarAoCarrinhoSimples(produtoId, nome, preco, imagem) {
+    const carrinho = getCarrinho();
+    const index = carrinho.findIndex(item => item.id === produtoId);
+
+    if (index === -1) {
+      carrinho.push({
+        id: produtoId,
+        nome,
+        preco,
+        imagem,
+        quantidade: 1
+      });
+    } else {
+      carrinho[index].quantidade += 1;
+    }
+
+    salvarCarrinho(carrinho);
+  }
+
+  // NOVO: ao carregar a página, ajustar ícones conforme localStorage
+  document.addEventListener('DOMContentLoaded', function () {
+    const favoritos = getFavoritos();
+
+    document.querySelectorAll('.produto-card').forEach(card => {
+      const url = new URL(card.href, window.location.origin);
+      const id  = url.searchParams.get('id');
+      const heart = card.querySelector('.icon-heart');
+      if (!heart) return;
+
+      heart.src = favoritos.includes(id)
+        ? 'imagens/icones/favorito-cheio.png'
+        : 'imagens/icones/favorito-preto.png';
+    });
+  });
+
+  // clique nos ícones (continua igual)
+  document.addEventListener('click', function (event) {
+    const heart = event.target.closest('.icon-heart');
+    const cart  = event.target.closest('.icon-cart');
+
+    if (heart) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const logado = localStorage.getItem('usuarioLogado');
+      if (logado !== 'true') {
+        alert('Você precisa estar logado para favoritar produtos.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const card = heart.closest('.produto-card');
+      const url  = new URL(card.href, window.location.origin);
+      const id   = url.searchParams.get('id');
+
+      const nome = card.querySelector('h3').textContent;
+      const precoTexto = card.querySelector('.preco').textContent;
+      const imagem = card.querySelector('img:not(.icon-heart):not(.icon-cart)').src;
+      const parcelamento = card.querySelector('.parcelas')
+        ? card.querySelector('.parcelas').textContent
+        : '';
+
+      const marcado = toggleFavorito(id);
+      heart.src = marcado
+        ? 'imagens/icones/favorito-cheio.png'
+        : 'imagens/icones/favorito-preto.png';
+
+      if (marcado) {
+        salvarFavoritoDetalhado(id, nome, precoTexto, imagem, parcelamento);
+      } else {
+        const salvo = localStorage.getItem('favoritosDetalhadosTrendStore');
+        let lista = salvo ? JSON.parse(salvo) : [];
+        lista = lista.filter(item => item.id !== id);
+        localStorage.setItem('favoritosDetalhadosTrendStore', JSON.stringify(lista));
+      }
+
+      alert(
+        marcado
+          ? 'Adicionado aos favoritos!'
+          : 'Removido dos favoritos!'
+      );
+    }
+
+    if (cart) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const card = cart.closest('.produto-card');
+      const url  = new URL(card.href, window.location.origin);
+      const id   = url.searchParams.get('id');
+      const nome = card.querySelector('h3').textContent;
+      const precoTexto = card.querySelector('.preco').textContent
+        .replace('.', '')
+        .replace(',', '.');
+      const preco  = Number(precoTexto);
+      const imagem = card.querySelector('img:not(.icon-heart):not(.icon-cart)').src;
+
+      adicionarAoCarrinhoSimples(id, nome, preco, imagem);
+      alert('Produto adicionado ao carrinho!');
+    }
+  });
+</script>
 
 <footer>
   &copy; 2025 TrendStore - Todos os direitos reservados.

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrendStore - Meus pedidos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="perfil.css" />
+</head>
+<body>
+
+<script>
+  const logado = localStorage.getItem('usuarioLogado');
+  if (logado !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
+
+<header class="main-header">
+  <div class="menu-icon">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Perfil" width="28" height="28">
+    </a>
+  </div>
+
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
+
+  <div class="header-icon">
+    <a href="favorito.html">
+      <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
+    <a href="carrinho.html">
+      <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="profile-container">
+    <h1 class="profile-title">Meus pedidos</h1>
+
+    <div id="lista-pedidos" class="pedidos-lista">
+      <!-- preenchido via JS -->
+    </div>
+  </div>
+</main>
+
+<script>
+  const idCliente = localStorage.getItem('idCliente');
+  const listaPedidos = document.getElementById('lista-pedidos');
+
+  async function carregarPedidos() {
+    try {
+      const resp = await fetch(`http://localhost:3000/api/clientes/${idCliente}/pedidos`);
+      if (!resp.ok) throw new Error('Erro ao buscar pedidos');
+
+      const pedidos = await resp.json();
+
+      if (!pedidos || pedidos.length === 0) {
+        listaPedidos.innerHTML = '<p class="info-text">Você ainda não realizou nenhum pedido.</p>';
+        return;
+      }
+
+      listaPedidos.innerHTML = pedidos.map(p => `
+        <div class="pedido-card">
+          <div class="pedido-header">
+            <span><strong>Pedido #${p.id_pedido}</strong></span>
+            <span>${new Date(p.data_pedido).toLocaleDateString('pt-BR')}</span>
+          </div>
+          <p>Status: ${p.status}</p>
+          <p>Total: R$ ${Number(p.total).toFixed(2).replace('.', ',')}</p>
+          <details class="pedido-detalhes">
+            <summary>Ver itens</summary>
+            <ul>
+              ${p.itens.map(i => `
+                <li>
+                  ${i.nome_produto} — ${i.quantidade}x 
+                  (R$ ${Number(i.preco_unitario).toFixed(2).replace('.', ',')})
+                </li>
+              `).join('')}
+            </ul>
+          </details>
+        </div>
+      `).join('');
+
+    } catch (e) {
+      console.error(e);
+      listaPedidos.innerHTML = '<p class="info-text erro">Erro ao carregar pedidos.</p>';
+    }
+  }
+
+  carregarPedidos();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrendStore - Meus endereços</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="perfil.css" />
+</head>
+<body>
+
+<script>
+  const logado = localStorage.getItem('usuarioLogado');
+  if (logado !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
+
+<header class="main-header">
+  <div class="menu-icon">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Perfil" width="28" height="28">
+    </a>
+  </div>
+
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
+
+  <div class="header-icon">
+    <a href="favorito.html">
+      <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
+    <a href="carrinho.html">
+      <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="profile-container">
+    <h1 class="profile-title">Meus endereços</h1>
+
+    <div id="lista-enderecos" class="enderecos-lista">
+      <!-- preenchido via JS -->
+    </div>
+
+    <h2 class="profile-subtitle">Adicionar / editar endereço</h2>
+
+    <form id="form-endereco" class="profile-form">
+      <input type="hidden" id="id_endereco" />
+
+      <div class="form-group">
+        <label for="logradouro">Rua / Avenida</label>
+        <input type="text" id="logradouro" required>
+      </div>
+
+      <div class="form-group">
+        <label for="numero">Número</label>
+        <input type="text" id="numero" required>
+      </div>
+
+      <div class="form-group">
+        <label for="complemento">Complemento</label>
+        <input type="text" id="complemento">
+      </div>
+
+      <div class="form-group">
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" required>
+      </div>
+
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" required>
+      </div>
+
+      <button type="submit" class="profile-button">Salvar endereço</button>
+    </form>
+  </div>
+</main>
+
+<script>
+  const idCliente = localStorage.getItem('idCliente');
+  const listaEnderecos = document.getElementById('lista-enderecos');
+  const formEndereco = document.getElementById('form-endereco');
+
+  async function carregarEnderecos() {
+    try {
+      const resp = await fetch(`http://localhost:3000/api/clientes/${idCliente}/enderecos`);
+      if (!resp.ok) throw new Error('Erro ao buscar endereços');
+
+      const enderecos = await resp.json();
+
+      if (!enderecos || enderecos.length === 0) {
+        listaEnderecos.innerHTML = '<p class="info-text">Você ainda não possui endereços cadastrados.</p>';
+        return;
+      }
+
+      listaEnderecos.innerHTML = enderecos.map(e => `
+        <div class="endereco-card">
+          <p>${e.logradouro}, ${e.numero} ${e.complemento || ''}</p>
+          <p>${e.bairro} - ${e.cidade}/${e.estado}</p>
+          <p>CEP: ${e.cep}</p>
+          <div class="endereco-acoes">
+            <button class="btn-pequeno btn-editar" data-id="${e.id_endereco}">Editar</button>
+            <button class="btn-pequeno btn-excluir" data-id="${e.id_endereco}">Excluir</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.btn-editar').forEach(btn => {
+        btn.addEventListener('click', () => preencherFormulario(btn.dataset.id, enderecos));
+      });
+
+      document.querySelectorAll('.btn-excluir').forEach(btn => {
+        btn.addEventListener('click', () => excluirEndereco(btn.dataset.id));
+      });
+
+    } catch (e) {
+      console.error(e);
+      listaEnderecos.innerHTML = '<p class="info-text erro">Erro ao carregar endereços.</p>';
+    }
+  }
+
+  function preencherFormulario(idEndereco, enderecos) {
+    const e = enderecos.find(item => String(item.id_endereco) === String(idEndereco));
+    if (!e) return;
+
+    document.getElementById('id_endereco').value = e.id_endereco;
+    document.getElementById('logradouro').value  = e.logradouro;
+    document.getElementById('numero').value      = e.numero;
+    document.getElementById('complemento').value = e.complemento || '';
+    document.getElementById('bairro').value      = e.bairro;
+    document.getElementById('cidade').value      = e.cidade;
+    document.getElementById('estado').value      = e.estado;
+    document.getElementById('cep').value         = e.cep;
+  }
+
+  async function excluirEndereco(idEndereco) {
+    if (!confirm('Deseja realmente excluir este endereço?')) return;
+
+    try {
+      const resp = await fetch(
+        `http://localhost:3000/api/clientes/${idCliente}/enderecos/${idEndereco}`,
+        { method: 'DELETE' }
+      );
+      if (!resp.ok) throw new Error('Erro ao excluir endereço');
+
+      alert('Endereço excluído com sucesso!');
+      carregarEnderecos();
+    } catch (e) {
+      console.error(e);
+      alert('Não foi possível excluir o endereço.');
+    }
+  }
+
+  formEndereco.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const idEndereco = document.getElementById('id_endereco').value;
+
+    const dados = {
+      logradouro:  document.getElementById('logradouro').value,
+      numero:      document.getElementById('numero').value,
+      complemento: document.getElementById('complemento').value,
+      bairro:      document.getElementById('bairro').value,
+      cidade:      document.getElementById('cidade').value,
+      estado:      document.getElementById('estado').value,
+      cep:         document.getElementById('cep').value
+    };
+
+    const url = idEndereco
+      ? `http://localhost:3000/api/clientes/${idCliente}/enderecos/${idEndereco}`
+      : `http://localhost:3000/api/clientes/${idCliente}/enderecos`;
+
+    const method = idEndereco ? 'PUT' : 'POST';
+
+    try {
+      const resp = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+
+      if (!resp.ok) {
+        const erro = await resp.json().catch(() => ({}));
+        alert('Erro ao salvar endereço: ' + (erro.erro || resp.status));
+        return;
+      }
+
+      alert('Endereço salvo com sucesso!');
+      formEndereco.reset();
+      document.getElementById('id_endereco').value = '';
+      carregarEnderecos();
+    } catch (e) {
+      console.error(e);
+      alert('Não foi possível conectar ao servidor.');
+    }
+  });
+
+  carregarEnderecos();
+</script>
+
+</body>
+</html>
