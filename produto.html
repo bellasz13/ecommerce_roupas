@@ -59,489 +59,59 @@
 <script>
   // bd em js
   const produtos = [
-    {
-      id: '1',
-      nome: 'Trio OFF',
-      preco: 779.90,
-      parcelamento: 'ou 7x sem juros',
-      imagem: 'imagens/roupas-fem/i1.jpg',
-      cores: ['off-white'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de blazer, cropped e calça em alfaiataria leve, ideal para ocasiões especiais.'
-    },
-    {
-      id: '2',
-      nome: 'Conjunto White',
-      preco: 429.90,
-      parcelamento: 'ou 4x sem juros',
-      imagem: 'imagens/roupas-fem/i2.jpg',
-      cores: ['branco'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de calça e camisa em algodão, leve e fresco para o dia a dia.'
-    },
-    {
-      id: '3',
-      nome: 'Vestido Amarelo Terroso',
-      preco: 1199.90,
-      parcelamento: 'ou 10x sem juros',
-      imagem: 'imagens/roupas-fem/i3.png',
-      cores: ['amarelo'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido com saia plissada, elegante para festas e ocasiões similares.'
-    },
-    {
-      id: '4',
-      nome: 'Vestido Burnet Red',
-      preco: 1559.90,
-      parcelamento: 'ou 10x sem juros',
-      imagem: 'imagens/roupas-fem/i4.jpg',
-      cores: ['vermelho'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido tomara que caia em cetim vermelho, ideal para festas.'
-    },
-    {
-      id: '5',
-      nome: 'Regata Godê Pink',
-      preco: 159.90,
-      parcelamento: 'ou 2x sem juros',
-      imagem: 'imagens/roupas-fem/i5.jpg',
-      cores: ['rosa'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Regata godê elegante para o dia a dia.'
-    },
-    {
-      id: '6',
-      nome: 'Conjunto Red Blood',
-      preco: 549.90,
-      parcelamento: 'ou 5x sem juros',
-      imagem: 'imagens/roupas-fem/i6.jpg',
-      cores: ['vermelho'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de calça e blazer vermelho, elegante, versátil e ideal para festas e trabalho.'
-    },
-    {
-      id: '7',
-      nome: 'Conjunto Grey',
-      preco: 479.90,
-      parcelamento: 'ou 4x sem juros',
-      imagem: 'imagens/roupas-fem/i7.jpg',
-      cores: ['cinza'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de calça pantalona e blusa de ombro único, elegante para o dia a dia.'
-    },
-    {
-      id: '8',
-      nome: 'Vestido Bege Plissado',
-      preco: 1249.90,
-      parcelamento: 'ou 10x sem juros',
-      imagem: 'imagens/roupas-fem/i8.jpg',
-      cores: ['bege'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido com saia plissada e tomara que caia, se adequa perfeitamente à ocasiões festivas.'
-    },
-    {
-      id: '9',
-      nome: 'Vestido Pink Flower',
-      preco: 1789.90,
-      parcelamento: 'ou 10x sem juros',
-      imagem: 'imagens/roupas-fem/i9.jpg',
-      cores: ['rosa'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido rosa com alça fina e aplicações de flores, dedicado à ocasiões especiais.'
-    },
-    {
-      id: '10',
-      nome: 'Vestido Yellow Butter',
-      preco: 829.90,
-      parcelamento: 'ou 8x sem juros',
-      imagem: 'imagens/roupas-fem/i10.jpg',
-      cores: ['amarelo'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido mid em tomara que caia com fenda lateral, elegante e ideal para festas.'
-    },
-    {
-      id: '11',
-      nome: 'Macacão Ombro Único',
-      preco: 669.90,
-      parcelamento: 'ou 6x sem juros',
-      imagem: 'imagens/roupas-fem/i11.jpg',
-      cores: ['rosa'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Macacão de ombro único com calça pantalona, elegante e sexy para ocasiões festivas.'
-    },
-    {
-      id: '12',
-      nome: 'Conjunto Purple',
-      preco: 409.90,
-      parcelamento: 'ou 4x sem juros',
-      imagem: 'imagens/roupas-fem/i12.png',
-      cores: ['roxo'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de blusa assimétrica de ombro único e calça.'
-    },
-    {
-      id: '13',
-      nome: 'Macacão Decote V',
-      preco: 399.90,
-      parcelamento: 'ou 4x sem juros',
-      imagem: 'imagens/roupas-fem/i13.jpg',
-      cores: ['marrom'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Macacão com decote profundo em V e calça pantalona.'
-    },
-    {
-      id: '14',
-      nome: 'Conjunto Réveillon',
-      preco: 489.90,
-      parcelamento: 'ou 4x sem juros',
-      imagem: 'imagens/roupas-fem/i14.jpg',
-      cores: ['off white'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de cropped e calça mid com amarrações, ideal para festividades no final do ano.'
-    },
-    {
-      id: '15',
-      nome: 'Grey Dress',
-      preco: 839.90,
-      parcelamento: 'ou 8x sem juros',
-      imagem: 'imagens/roupas-fem/i15.jpg',
-      cores: ['cinza'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido maxi de ombro único e caimento leve e solto, acompanha lenço versátil.'
-    },
-    {
-      id: '16',
-      nome: 'Vestido Luar',
-      preco: 989.90,
-      parcelamento: 'ou 9x sem juros',
-      imagem: 'imagens/roupas-fem/i16.jpg',
-      cores: ['azul escuro'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Vestido longo tomara que caia com caimento leve e solto, acompanha lenço versátil.'
-    },
-    // masculino
-    {
-      id: '101',
-      nome: 'Camisa Linho',
-      preco: 179.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i1.jpg',
-      cores: ['off white'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa de linho com manga curta e botões frontais, ideal para ocasiões descontraídas.'
-    },
-    {
-      id: '102',
-      nome: 'Calça Sarja Bege',
-      preco: 229.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i2.jpg',
-      cores: ['bege'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Calça de sarja com modelagem solta.'
-    },
-    {
-      id: '103',
-      nome: 'Blusa Tricot Azul',
-      preco: 259.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i3.jpg',
-      cores: ['azul'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Blusa em tricot que se adequa ao corpo, ideal para dias frios.'
-    },
-    {
-      id: '104',
-      nome: 'Blusa Tricot OFF',
-      preco: 259.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i4.jpg',
-      cores: ['off white'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Blusa em tricot com modelagem solta, ideal para dias frios.'
-    },
-    {
-      id: '105',
-      nome: 'Bermuda Sarja Bege',
-      preco: 159.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i5.jpg',
-      cores: ['bege'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Bermuda de sarja com modelagem mais justa, ideal para ocasiões descontraídas.'
-    },
-    {
-      id: '106',
-      nome: 'Camisa Listrada',
-      preco: 199.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i6.jpg',
-      cores: ['verde e branco'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa social listrada com modelagem solta.'
-    },
-    {
-      id: '107',
-      nome: 'Camiseta Pastel',
-      preco: 179.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i7.jpg',
-      cores: ['azul pastel'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camiseta em tom pastel com modelagem solta.'
-    },
-    {
-      id: '108',
-      nome: 'Regata Bege',
-      preco: 109.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i8.jpg',
-      cores: ['bege'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Regata com modelagem justa.'
-    },
-    {
-      id: '109',
-      nome: 'Conjunto BIC Azul',
-      preco: 389.90,
-      parcelamento: 'ou 3x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i9.jpg',
-      cores: ['azul'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Conjunto de bermuda e camiseta ideais para o dia a dia.'
-    },
-    {
-      id: '110',
-      nome: 'Camisa Boxy Pastel',
-      preco: 129.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i10.jpg',
-      cores: ['rosa pastel'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa com modelagem boxy de manga curta e bolsos frontais.'
-    },
-    {
-      id: '111',
-      nome: 'Camisa Oliva',
-      preco: 219.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i11.jpg',
-      cores: ['verde'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa social com um bolso frontal.'
-    },
-    {
-      id: '112',
-      nome: 'Camisa Linho - Ramos',
-      preco: 179.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i12.jpg',
-      cores: ['off white'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa de linho de manga curta com desenhos frontais.'
-    },
-    {
-      id: '113',
-      nome: 'Camisa Gaivotas',
-      preco: 169.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i13.jpg',
-      cores: ['azul'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa de manga curta com desenho de gaivotas.'
-    },
-    {
-      id: '114',
-      nome: 'Calça Sarja Marrom',
-      preco: 189.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/roupas-masc/i14.jpg',
-      cores: ['marrom'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Calça de sarja com modelagem mais justa.'
-    },
-    {
-      id: '115',
-      nome: 'Camisa Zebra',
-      preco: 89.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/roupas-masc/i15.jpg',
-      cores: ['branco e preto'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Camisa de manga curta com listras diagonais.'
-    },
-    {
-      id: '116',
-      nome: 'Jorts',
-      preco: 109.90,
-      parcelamento: 'ou 2x sem juros',
-      imagem: 'imagens/roupas-masc/i16.jpg',
-      cores: ['preto'],
-      tamanhos: ['P', 'M', 'G', 'GG'],
-      descricao: 'Jorts com modelagem solta, ideal para ocasiões descontraídas.'
-    },
+    //fem
+    { id: '1', nome: 'Trio OFF', preco: 779.90, parcelamento: 'ou 7x sem juros', imagem: 'imagens/roupas-fem/i1.jpg', cores: ['off-white'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de blazer, cropped e calça em alfaiataria leve, ideal para ocasiões especiais.' },
+    { id: '2', nome: 'Conjunto White', preco: 429.90, parcelamento: 'ou 4x sem juros', imagem: 'imagens/roupas-fem/i2.jpg', cores: ['branco'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de calça e camisa em algodão, leve e fresco para o dia a dia.' },
+    { id: '3', nome: 'Vestido Amarelo Terroso', preco: 1199.90, parcelamento: 'ou 10x sem juros', imagem: 'imagens/roupas-fem/i3.png', cores: ['amarelo'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido com saia plissada, elegante para festas e ocasiões similares.' },
+    { id: '4', nome: 'Vestido Burnet Red', preco: 1559.90, parcelamento: 'ou 10x sem juros', imagem: 'imagens/roupas-fem/i4.jpg', cores: ['vermelho'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido tomara que caia em cetim vermelho, ideal para festas.' },
+    { id: '5', nome: 'Regata Godê Pink', preco: 159.90, parcelamento: 'ou 2x sem juros', imagem: 'imagens/roupas-fem/i5.jpg', cores: ['rosa'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Regata godê elegante para o dia a dia.' },
+    { id: '6', nome: 'Conjunto Red Blood', preco: 549.90, parcelamento: 'ou 5x sem juros', imagem: 'imagens/roupas-fem/i6.jpg', cores: ['vermelho'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de calça e blazer vermelho, elegante, versátil e ideal para festas e trabalho.' },
+    { id: '7', nome: 'Conjunto Grey', preco: 479.90, parcelamento: 'ou 4x sem juros', imagem: 'imagens/roupas-fem/i7.jpg', cores: ['cinza'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de calça pantalona e blusa de ombro único, elegante para o dia a dia.' },
+    { id: '8', nome: 'Vestido Bege Plissado', preco: 1249.90, parcelamento: 'ou 10x sem juros', imagem: 'imagens/roupas-fem/i8.jpg', cores: ['bege'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido com saia plissada e tomara que caia, se adequa perfeitamente à ocasiões festivas.' },
+    { id: '9', nome: 'Vestido Pink Flower', preco: 1789.90, parcelamento: 'ou 10x sem juros', imagem: 'imagens/roupas-fem/i9.jpg', cores: ['rosa'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido rosa com alça fina e aplicações de flores, dedicado à ocasiões especiais.' },
+    { id: '10', nome: 'Vestido Yellow Butter', preco: 829.90, parcelamento: 'ou 8x sem juros', imagem: 'imagens/roupas-fem/i10.jpg', cores: ['amarelo'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido mid em tomara que caia com fenda lateral, elegante e ideal para festas.' },
+    { id: '11', nome: 'Macacão Ombro Único', preco: 669.90, parcelamento: 'ou 6x sem juros', imagem: 'imagens/roupas-fem/i11.jpg', cores: ['rosa'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Macacão de ombro único com calça pantalona, elegante e sexy para ocasiões festivas.' },
+    { id: '12', nome: 'Conjunto Purple', preco: 409.90, parcelamento: 'ou 4x sem juros', imagem: 'imagens/roupas-fem/i12.png', cores: ['roxo'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de blusa assimétrica de ombro único e calça.' },
+    { id: '13', nome: 'Macacão Decote V', preco: 399.90, parcelamento: 'ou 4x sem juros', imagem: 'imagens/roupas-fem/i13.jpg', cores: ['marrom'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Macacão com decote profundo em V e calça pantalona.' },
+    { id: '14', nome: 'Conjunto Réveillon', preco: 489.90, parcelamento: 'ou 4x sem juros', imagem: 'imagens/roupas-fem/i14.jpg', cores: ['off white'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de cropped e calça mid com amarrações, ideal para festividades no final do ano.' },
+    { id: '15', nome: 'Grey Dress', preco: 839.90, parcelamento: 'ou 8x sem juros', imagem: 'imagens/roupas-fem/i15.jpg', cores: ['cinza'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido maxi de ombro único e caimento leve e solto, acompanha lenço versátil.' },
+    { id: '16', nome: 'Vestido Luar', preco: 989.90, parcelamento: 'ou 9x sem juros', imagem: 'imagens/roupas-fem/i16.jpg', cores: ['azul escuro'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Vestido longo tomara que caia com caimento leve e solto, acompanha lenço versátil.' },
+    // masc
+    { id: '101', nome: 'Camisa Linho', preco: 179.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i1.jpg', cores: ['off white'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa de linho com manga curta e botões frontais, ideal para ocasiões descontraídas.' },
+    { id: '102', nome: 'Calça Sarja Bege', preco: 229.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i2.jpg', cores: ['bege'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Calça de sarja com modelagem solta.' },
+    { id: '103', nome: 'Blusa Tricot Azul', preco: 259.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i3.jpg', cores: ['azul'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Blusa em tricot que se adequa ao corpo, ideal para dias frios.' },
+    { id: '104', nome: 'Blusa Tricot OFF', preco: 259.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i4.jpg', cores: ['off white'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Blusa em tricot com modelagem solta, ideal para dias frios.' },
+    { id: '105', nome: 'Bermuda Sarja Bege', preco: 159.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i5.jpg', cores: ['bege'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Bermuda de sarja com modelagem mais justa, ideal para ocasiões descontraídas.' },
+    { id: '106', nome: 'Camisa Listrada', preco: 199.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i6.jpg', cores: ['verde e branco'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa social listrada com modelagem solta.' },
+    { id: '107', nome: 'Camiseta Pastel', preco: 179.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i7.jpg', cores: ['azul pastel'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camiseta em tom pastel com modelagem solta.' },
+    { id: '108', nome: 'Regata Bege', preco: 109.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i8.jpg', cores: ['bege'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Regata com modelagem justa.' },
+    { id: '109', nome: 'Conjunto BIC Azul', preco: 389.90, parcelamento: 'ou 3x vezes sem juros', imagem: 'imagens/roupas-masc/i9.jpg', cores: ['azul'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Conjunto de bermuda e camiseta ideais para o dia a dia.' },
+    { id: '110', nome: 'Camisa Boxy Pastel', preco: 129.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i10.jpg', cores: ['rosa pastel'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa com modelagem boxy de manga curta e bolsos frontais.' },
+    { id: '111', nome: 'Camisa Oliva', preco: 219.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i11.jpg', cores: ['verde'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa social com um bolso frontal.' },
+    { id: '112', nome: 'Camisa Linho - Ramos', preco: 179.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i12.jpg', cores: ['off white'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa de linho de manga curta com desenhos frontais.' },
+    { id: '113', nome: 'Camisa Gaivotas', preco: 169.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i13.jpg', cores: ['azul'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa de manga curta com desenho de gaivotas.' },
+    { id: '114', nome: 'Calça Sarja Marrom', preco: 189.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/roupas-masc/i14.jpg', cores: ['marrom'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Calça de sarja com modelagem mais justa.' },
+    { id: '115', nome: 'Camisa Zebra', preco: 89.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/roupas-masc/i15.jpg', cores: ['branco e preto'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Camisa de manga curta com listras diagonais.' },
+    { id: '116', nome: 'Jorts', preco: 109.90, parcelamento: 'ou 2x sem juros', imagem: 'imagens/roupas-masc/i16.jpg', cores: ['preto'], tamanhos: ['P', 'M', 'G', 'GG'], descricao: 'Jorts com modelagem solta, ideal para ocasiões descontraídas.' },
     // acessórios
-    {
-      id: '201',
-      nome: 'Cinto OFF',
-      preco: 59.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i1.jpg',
-      cores: ['off white'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Cinto unissex com fivela prata.'
-    },
-    {
-      id: '202',
-      nome: 'Relógio Brown Gold',
-      preco: 99.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i2.jpg',
-      cores: ['marrom com dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Relógio unissex marrom com detalhes em dourado.'
-    },
-    {
-      id: '203',
-      nome: 'Dupla - Silver&Gold',
-      preco: 119.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i3.jpg',
-      cores: ['prata e dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Conjunto de corrente e brinco com mistura de prata e dourado.'
-    },
-    {
-      id: '204',
-      nome: 'Brinco Informal',
-      preco: 49.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i4.jpg',
-      cores: ['dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Brinco em formato orgânico para fugir do básico.'
-    },
-    {
-      id: '205',
-      nome: 'Corrente Sun',
-      preco: 89.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i5.jpg',
-      cores: ['dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Corrente dourada com pingente de sol.'
-    },
-    {
-      id: '206',
-      nome: 'Brinco Pedras',
-      preco: 79.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i6.jpg',
-      cores: ['dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Brinco com trio de pedras variadas.'
-    },
-    {
-      id: '207',
-      nome: 'Relógio Gold',
-      preco: 179.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i7.jpg',
-      cores: ['dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Clássico relógio dourado unissex.'
-    },
-    {
-      id: '208',
-      nome: 'Cinto Couro Bege',
-      preco: 149.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i8.jpg',
-      cores: ['couro bege'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Cinto de couro com fivela dourada.'
-    },
-    {
-      id: '209',
-      nome: 'Bolsa Sunset',
-      preco: 169.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i9.jpg',
-      cores: ['dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Bolsa de tamanho pequeno-médio com alça curta.'
-    },
-    {
-      id: '210',
-      nome: 'Bolsa Tiracolo',
-      preco: 129.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i10.jpg',
-      cores: ['marrom'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Bolsa de tamanho pequeno-médio com alça mediana de corrente.'
-    },
-    {
-      id: '211',
-      nome: 'Bolsa Brown',
-      preco: 159.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i11.jpg',
-      cores: ['marrom'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Bolsa de PU acolchoada com alça mediana e detalhes dourados.'
-    },
-    {
-      id: '212',
-      nome: 'Bolsa Couro Branco',
-      preco: 309.90,
-      parcelamento: 'ou 3x vezes sem juros',
-      imagem: 'imagens/acessorios/i12.jpg',
-      cores: ['couro branco'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Bolsa de couro em tamanho pequeno-médio com detalhes dourados.'
-    },
-    {
-      id: '213',
-      nome: 'Brinco Flower',
-      preco: 49.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i13.png',
-      cores: ['dourado'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Brinco em formato de flor, belíssimo para fugir do básico.'
-    },
-    {
-      id: '214',
-      nome: 'Anel Pérola',
-      preco: 89.90,
-      parcelamento: 'ou 1x vez sem juros',
-      imagem: 'imagens/acessorios/i14.jpg',
-      cores: ['dourado'],
-      tamanhos: ['13', '14', '15', '16', '17', '18'],
-      descricao: 'Anel dourado com pérola.'
-    },
-    {
-      id: '215',
-      nome: 'Anel Diamond',
-      preco: 239.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i15.jpg',
-      cores: ['dourado'],
-      tamanhos: ['13', '14', '15', '16', '17', '18'],
-      descricao: 'Anel banhado a ouro 18k com pedraria branca.'
-    },
-    {
-      id: '216',
-      nome: 'Dupla Green',
-      preco: 139.90,
-      parcelamento: 'ou 2x vezes sem juros',
-      imagem: 'imagens/acessorios/i16.jpg',
-      cores: ['prata com verde'],
-      tamanhos: ['tamanho único'],
-      descricao: 'Conjunto de corrente e brincos pratas com pedraria verde.'
-    }
+    { id: '201', nome: 'Cinto OFF', preco: 59.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i1.jpg', cores: ['off white'], tamanhos: ['tamanho único'], descricao: 'Cinto unissex com fivela prata.' },
+    { id: '202', nome: 'Relógio Brown Gold', preco: 99.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i2.jpg', cores: ['marrom com dourado'], tamanhos: ['tamanho único'], descricao: 'Relógio unissex marrom com detalhes em dourado.' },
+    { id: '203', nome: 'Dupla - Silver&Gold', preco: 119.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i3.jpg', cores: ['prata e dourado'], tamanhos: ['tamanho único'], descricao: 'Conjunto de corrente e brinco com mistura de prata e dourado.' },
+    { id: '204', nome: 'Brinco Informal', preco: 49.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i4.jpg', cores: ['dourado'], tamanhos: ['tamanho único'], descricao: 'Brinco em formato orgânico para fugir do básico.' },
+    { id: '205', nome: 'Corrente Sun', preco: 89.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i5.jpg', cores: ['dourado'], tamanhos: ['tamanho único'], descricao: 'Corrente dourada com pingente de sol.' },
+    { id: '206', nome: 'Brinco Pedras', preco: 79.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i6.jpg', cores: ['dourado'], tamanhos: ['tamanho único'], descricao: 'Brinco com trio de pedras variadas.' },
+    { id: '207', nome: 'Relógio Gold', preco: 179.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i7.jpg', cores: ['dourado'], tamanhos: ['tamanho único'], descricao: 'Clássico relógio dourado unissex.' },
+    { id: '208', nome: 'Cinto Couro Bege', preco: 149.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i8.jpg', cores: ['couro bege'], tamanhos: ['tamanho único'], descricao: 'Cinto de couro com fivela dourada.' },
+    { id: '209', nome: 'Bolsa Sunset', preco: 169.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i9.jpg', cores: ['dourado'], tamanhos: ['tamanho único'], descricao: 'Bolsa de tamanho pequeno-médio com alça curta.' },
+    { id: '210', nome: 'Bolsa Tiracolo', preco: 129.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i10.jpg', cores: ['marrom'], tamanhos: ['tamanho único'], descricao: 'Bolsa de tamanho pequeno-médio com alça mediana de corrente.' },
+    { id: '211', nome: 'Bolsa Brown', preco: 159.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i11.jpg', cores: ['marrom'], tamanhos: ['tamanho único'], descricao: 'Bolsa de PU acolchoada com alça mediana e detalhes dourados.' },
+    { id: '212', nome: 'Bolsa Couro Branco', preco: 309.90, parcelamento: 'ou 3x vezes sem juros', imagem: 'imagens/acessorios/i12.jpg', cores: ['couro branco'], tamanhos: ['tamanho único'], descricao: 'Bolsa de couro em tamanho pequeno-médio com detalhes dourados.' },
+    { id: '213', nome: 'Brinco Flower', preco: 49.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i13.png', cores: ['dourado'], tamanhos: ['tamanho único'], descricao: 'Brinco em formato de flor, belíssimo para fugir do básico.' },
+    { id: '214', nome: 'Anel Pérola', preco: 89.90, parcelamento: 'ou 1x vez sem juros', imagem: 'imagens/acessorios/i14.jpg', cores: ['dourado'], tamanhos: ['13', '14', '15', '16', '17', '18'], descricao: 'Anel dourado com pérola.' },
+    { id: '215', nome: 'Anel Diamond', preco: 239.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i15.jpg', cores: ['dourado'], tamanhos: ['13', '14', '15', '16', '17', '18'], descricao: 'Anel banhado a ouro 18k com pedraria branca.' },
+    { id: '216', nome: 'Dupla Green', preco: 139.90, parcelamento: 'ou 2x vezes sem juros', imagem: 'imagens/acessorios/i16.jpg', cores: ['prata com verde'], tamanhos: ['tamanho único'], descricao: 'Conjunto de corrente e brincos pratas com pedraria verde.' }
   ];
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   const produto = produtos.find(p => p.id === id);
@@ -679,13 +249,18 @@
 
   function adicionarAoCarrinho(produto, cor, tamanho) {
     const carrinho = getCarrinho();
+    const idProduto = Number(produto.id);
+
     const index = carrinho.findIndex(
-      item => item.id === produto.id && item.cor === cor && item.tamanho === tamanho
+      item =>
+        item.id_produto === idProduto &&
+        item.cor === cor &&
+        item.tamanho === tamanho
     );
 
     if (index === -1) {
       carrinho.push({
-        id: produto.id,
+        id_produto: idProduto,
         nome: produto.nome,
         preco: produto.preco,
         imagem: produto.imagem,

@@ -31,7 +31,7 @@ function query(sql, params = []) {
   });
 }
 
-// ========== CLIENTES ==========
+// clientes
 
 app.post('/api/clientes', async (req, res) => {
   try {
@@ -82,7 +82,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// ========== PRODUTOS ==========
+// produtos
 
 app.get('/api/produtos', async (req, res) => {
   try {
@@ -107,7 +107,7 @@ app.get('/api/produtos/:id', async (req, res) => {
   }
 });
 
-// ========== FAVORITOS ==========
+// favs
 
 app.get('/api/clientes/:id_cliente/favoritos', async (req, res) => {
   try {
@@ -154,7 +154,7 @@ app.post('/api/clientes/:id_cliente/favoritos', async (req, res) => {
   }
 });
 
-// ========== CARRINHO ==========
+// carrinho
 
 async function getOrCreateCarrinho(id_cliente) {
   let rows = await query('SELECT * FROM carrinhos WHERE id_cliente = ?', [id_cliente]);
@@ -228,7 +228,82 @@ app.delete('/api/clientes/:id_cliente/carrinho/:id_item', async (req, res) => {
   }
 });
 
-// ========== PEDIDOS ==========
+// endereços
+app.get('/api/clientes/:id_cliente/enderecos', async (req, res) => {
+  try {
+    const { id_cliente } = req.params;
+    const rows = await query(
+      'SELECT id_endereco, logradouro, numero, complemento, bairro, cidade, estado, cep FROM enderecos WHERE id_cliente = ? ORDER BY id_endereco DESC',
+      [id_cliente]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: 'Erro ao buscar endereços' });
+  }
+});
+
+app.post('/api/clientes/:id_cliente/enderecos', async (req, res) => {
+  try {
+    const { id_cliente } = req.params;
+    const { logradouro, numero, complemento, bairro, cidade, estado, cep } = req.body;
+
+    const result = await query(
+      `INSERT INTO enderecos
+         (id_cliente, logradouro, numero, complemento, bairro, cidade, estado, cep)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [id_cliente, logradouro, numero, complemento, bairro, cidade, estado, cep]
+    );
+
+    res.status(201).json({ id_endereco: result.insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: 'Erro ao criar endereço' });
+  }
+});
+
+app.put('/api/clientes/:id_cliente/enderecos/:id_endereco', async (req, res) => {
+  try {
+    const { id_cliente, id_endereco } = req.params;
+    const { logradouro, numero, complemento, bairro, cidade, estado, cep } = req.body;
+
+    await query(
+      `UPDATE enderecos
+         SET logradouro  = ?,
+             numero      = ?,
+             complemento = ?,
+             bairro      = ?,
+             cidade      = ?,
+             estado      = ?,
+             cep         = ?
+       WHERE id_endereco = ? AND id_cliente = ?`,
+      [logradouro, numero, complemento, bairro, cidade, estado, cep, id_endereco, id_cliente]
+    );
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: 'Erro ao atualizar endereço' });
+  }
+});
+
+app.delete('/api/clientes/:id_cliente/enderecos/:id_endereco', async (req, res) => {
+  try {
+    const { id_cliente, id_endereco } = req.params;
+
+    await query(
+      'DELETE FROM enderecos WHERE id_endereco = ? AND id_cliente = ?',
+      [id_endereco, id_cliente]
+    );
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: 'Erro ao excluir endereço' });
+  }
+});
+
+// pedidos
 
 app.post('/api/pedidos', async (req, res) => {
   try {
@@ -321,7 +396,7 @@ app.get('/api/clientes/:id_cliente/pedidos', async (req, res) => {
   }
 });
 
-// ========== CLIENTE (GET/PUT PARA "MEU CADASTRO") ==========
+// get p/ cadastro
 
 app.get('/api/clientes/:id', async (req, res) => {
   try {

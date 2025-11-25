@@ -124,11 +124,11 @@
               <option value="3">3x sem juros</option>
               <option value="4">4x sem juros</option>
               <option value="5">5x sem juros</option>
-              <option value="5">6x sem juros</option>
-              <option value="5">7x sem juros</option>
-              <option value="5">8x sem juros</option>
-              <option value="5">9x sem juros</option>
-              <option value="5">10x sem juros</option>
+              <option value="6">6x sem juros</option>
+              <option value="7">7x sem juros</option>
+              <option value="8">8x sem juros</option>
+              <option value="9">9x sem juros</option>
+              <option value="10">10x sem juros</option>
             </select>
           </div>
         </div>
@@ -199,6 +199,33 @@
   atualizarVisibilidadePagamento();
 
   const formCheckout = document.getElementById('form-checkout');
+  const idCliente = localStorage.getItem('idCliente');
+
+  async function carregarEnderecoSalvo() {
+    if (!idCliente) return;
+
+    try {
+      const resp = await fetch(`http://localhost:3000/api/clientes/${idCliente}/enderecos`);
+      if (!resp.ok) return;
+
+      const enderecos = await resp.json();
+      if (!enderecos || enderecos.length === 0) return;
+
+      const e = enderecos[0];
+
+      document.getElementById('logradouro').value  = e.logradouro || '';
+      document.getElementById('numero').value      = e.numero || '';
+      document.getElementById('complemento').value = e.complemento || '';
+      document.getElementById('bairro').value      = e.bairro || '';
+      document.getElementById('cidade').value      = e.cidade || '';
+      document.getElementById('estado').value      = e.estado || '';
+      document.getElementById('cep').value         = e.cep || '';
+
+      localStorage.setItem('idEnderecoEntrega', e.id_endereco);
+    } catch (e) {
+      console.error('Erro ao carregar endereço salvo no checkout:', e);
+    }
+  }
 
   formCheckout.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -214,18 +241,55 @@
       total += item.quantidade * Number(item.preco);
     });
 
-    const idCliente = localStorage.getItem('idCliente');
-    const idEnderecoEntrega = localStorage.getItem('idEnderecoEntrega'); //revisar essa parte, acho q está dando erro na hr de finalizar
-
     if (!idCliente) {
       alert('Você precisa estar logado para finalizar a compra.');
       window.location.href = 'login.html';
       return;
     }
 
+    let idEnderecoEntrega = localStorage.getItem('idEnderecoEntrega');
+
     if (!idEnderecoEntrega) {
-      alert('Selecione um endereço de entrega antes de finalizar.');
-      return;
+      const dadosEndereco = {
+        logradouro:  document.getElementById('logradouro').value,
+        numero:      document.getElementById('numero').value,
+        complemento: document.getElementById('complemento').value,
+        bairro:      document.getElementById('bairro').value,
+        cidade:      document.getElementById('cidade').value,
+        estado:      document.getElementById('estado').value,
+        cep:         document.getElementById('cep').value
+      };
+
+      if (
+        !dadosEndereco.logradouro || !dadosEndereco.numero ||
+        !dadosEndereco.bairro || !dadosEndereco.cidade ||
+        !dadosEndereco.estado || !dadosEndereco.cep
+      ) {
+        alert('Preencha todos os campos de endereço antes de finalizar.');
+        return;
+      }
+
+      try {
+        const respEnd = await fetch(`http://localhost:3000/api/clientes/${idCliente}/enderecos`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dadosEndereco)
+        });
+
+        if (!respEnd.ok) {
+          const erroEnd = await respEnd.json().catch(() => ({}));
+          alert('Erro ao salvar endereço de entrega: ' + (erroEnd.erro || respEnd.status));
+          return;
+        }
+
+        const novoEnd = await respEnd.json();
+        idEnderecoEntrega = novoEnd.id_endereco;
+        localStorage.setItem('idEnderecoEntrega', idEnderecoEntrega);
+      } catch (e) {
+        console.error('Erro ao criar endereço de entrega:', e);
+        alert('Não foi possível salvar o endereço de entrega.');
+        return;
+      }
     }
 
     const corpo = {
@@ -233,7 +297,7 @@
       id_endereco_entrega: idEnderecoEntrega,
       total: total,
       itens: itens.map(i => ({
-        id_produto: i.id, 
+        id_produto: i.id_produto,  
         quantidade: i.quantidade,
         preco_unitario: Number(i.preco)
       }))
@@ -268,6 +332,7 @@
   });
 
   carregarResumo();
+  carregarEnderecoSalvo();
 </script>
 
 </body>

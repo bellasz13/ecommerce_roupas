@@ -41,8 +41,7 @@
   <div class="profile-container">
     <h1 class="profile-title">Meus endereços</h1>
 
-    <div id="lista-enderecos" class="enderecos-lista">
-    </div>
+    <div id="lista-enderecos" class="enderecos-lista"></div>
 
     <h2 class="profile-subtitle">Adicionar / editar endereço</h2>
 
@@ -102,7 +101,10 @@
       }
 
       const resp = await fetch(`http://localhost:3000/api/clientes/${idCliente}/enderecos`);
-      if (!resp.ok) throw new Error('Erro ao buscar endereços');
+      if (!resp.ok) {
+        console.error('Falha ao buscar endereços. Status:', resp.status);
+        throw new Error('Erro ao buscar endereços');
+      }
 
       const enderecos = await resp.json();
 
@@ -159,7 +161,10 @@
         `http://localhost:3000/api/clientes/${idCliente}/enderecos/${idEndereco}`,
         { method: 'DELETE' }
       );
-      if (!resp.ok) throw new Error('Erro ao excluir endereço');
+      if (!resp.ok) {
+        console.error('Falha ao excluir endereço. Status:', resp.status);
+        throw new Error('Erro ao excluir endereço');
+      }
 
       alert('Endereço excluído com sucesso!');
       carregarEnderecos();

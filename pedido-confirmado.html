@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrendStore - Pedido confirmado</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="main-header">
+  <div class="menu-icon">
+    <a href="perfil.html">
+      <img src="imagens/icones/user.png" alt="Perfil" width="28" height="28">
+    </a>
+  </div>
+
+  <div class="logo">
+    <a href="index.html">TrendStore</a>
+  </div>
+
+  <div class="header-icon">
+    <a href="favorito.html">
+      <img src="imagens/icones/favorito.png" alt="Favoritos" width="28">
+    </a>
+    <a href="carrinho.html">
+      <img src="imagens/icones/carrinho.png" alt="Carrinho de compras" width="28" height="28">
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="profile-container" style="max-width: 900px;">
+    <h1 class="profile-title">Pedido realizado com sucesso!</h1>
+
+    <p class="info-text">
+      Obrigado por comprar na TrendStore. Seu pedido foi criado e está em <strong>separação</strong>.
+    </p>
+
+    <div id="bloco-status" class="checkout-card" style="margin-top: 20px;">
+      <h2>Status do pedido</h2>
+
+      <div class="linha-status">
+        <div class="status-etapa concluido">
+          <span class="status-icone">✔</span>
+          <span class="status-titulo">Pedido realizado</span>
+        </div>
+        <div class="status-etapa concluido">
+          <span class="status-icone">✔</span>
+          <span class="status-titulo">Pagamento aprovado</span>
+        </div>
+        <div class="status-etapa atual">
+          <span class="status-icone">⏳</span>
+          <span class="status-titulo">Em separação</span>
+        </div>
+        <div class="status-etapa">
+          <span class="status-icone">🚚</span>
+          <span class="status-titulo">Em transporte</span>
+        </div>
+        <div class="status-etapa">
+          <span class="status-icone">✔</span>
+          <span class="status-titulo">Entregue</span>
+        </div>
+      </div>
+
+      <div id="resumo-pedido" style="margin-top: 20px;">
+        <p><strong>Número do pedido:</strong> <span id="numero-pedido">-</span></p>
+        <p><strong>Status:</strong> <span id="status-pedido">em separação</span></p>
+        <p><strong>Valor total:</strong> R$ <span id="total-pedido">0,00</span></p>
+      </div>
+
+      <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="meus-pedidos.html" class="profile-button" style="text-align:center;">
+          Ver meus pedidos
+        </a>
+        <a href="index.html" class="profile-button" style="background-color:#fff;color:#7a4b1b;border:1px solid #7a4b1b;text-align:center;">
+          Voltar para a loja
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const idPedido   = localStorage.getItem('ultimoPedidoId');
+  const status     = localStorage.getItem('ultimoPedidoStatus') || 'em separacao';
+  const total      = localStorage.getItem('ultimoPedidoTotal');
+
+  if (idPedido) {
+    document.getElementById('numero-pedido').textContent = idPedido;
+  }
+
+  document.getElementById('status-pedido').textContent =
+    status === 'em separacao' ? 'em separação' : status;
+
+  if (total) {
+    document.getElementById('total-pedido').textContent =
+      Number(total).toFixed(2).replace('.', ',');
+  }
+</script>
+
+</body>
+</html>
