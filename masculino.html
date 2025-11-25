@@ -276,7 +276,6 @@
     salvarCarrinho(carrinho);
   }
 
-  // NOVO: ao carregar a página, ajustar ícones conforme localStorage
   document.addEventListener('DOMContentLoaded', function () {
     const favoritos = getFavoritos();
 
@@ -292,7 +291,6 @@
     });
   });
 
-  // clique nos ícones (continua igual)
   document.addEventListener('click', function (event) {
     const heart = event.target.closest('.icon-heart');
     const cart  = event.target.closest('.icon-cart');
@@ -362,4 +360,3 @@
 
 </body>
 </html>
-

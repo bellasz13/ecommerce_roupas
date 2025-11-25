@@ -42,7 +42,6 @@
     <h1 class="profile-title">Meus pedidos</h1>
 
     <div id="lista-pedidos" class="pedidos-lista">
-      <!-- preenchido via JS -->
     </div>
   </div>
 </main>
@@ -53,6 +52,11 @@
 
   async function carregarPedidos() {
     try {
+      if (!idCliente) {
+        listaPedidos.innerHTML = '<p class="info-text erro">Não foi possível identificar o cliente. Faça login novamente.</p>';
+        return;
+      }
+
       const resp = await fetch(`http://localhost:3000/api/clientes/${idCliente}/pedidos`);
       if (!resp.ok) throw new Error('Erro ao buscar pedidos');
 
@@ -70,13 +74,13 @@
             <span>${new Date(p.data_pedido).toLocaleDateString('pt-BR')}</span>
           </div>
           <p>Status: ${p.status}</p>
-          <p>Total: R$ ${Number(p.total).toFixed(2).replace('.', ',')}</p>
+          <p>Total: R$ ${Number(p.valor_total).toFixed(2).replace('.', ',')}</p>
           <details class="pedido-detalhes">
             <summary>Ver itens</summary>
             <ul>
               ${p.itens.map(i => `
                 <li>
-                  ${i.nome_produto} — ${i.quantidade}x 
+                  ${i.nome_produto} — ${i.quantidade}x
                   (R$ ${Number(i.preco_unitario).toFixed(2).replace('.', ',')})
                 </li>
               `).join('')}

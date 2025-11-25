@@ -89,11 +89,11 @@
       }
 
       const dados = await resp.json();
-      document.getElementById('nome_completo').value    = dados.nome_completo    || '';
-      document.getElementById('email').value            = dados.email            || '';
-      document.getElementById('telefone').value         = dados.telefone         || '';
-      document.getElementById('cpf').value              = dados.cpf              || '';
-      document.getElementById('data_nascimento').value  = dados.data_nascimento  || '';
+      document.getElementById('nome_completo').value   = dados.nome_completo   || '';
+      document.getElementById('email').value           = dados.email           || '';
+      document.getElementById('telefone').value        = dados.telefone        || '';
+      document.getElementById('cpf').value             = dados.cpf             || '';
+      document.getElementById('data_nascimento').value = dados.data_nascimento || '';
     } catch (e) {
       console.error('Erro ao carregar cadastro:', e);
       alert('Erro ao carregar seus dados. Verifique se o servidor (localhost:3000) está ativo e tente novamente.');

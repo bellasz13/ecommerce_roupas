@@ -8,6 +8,13 @@
 </head>
 <body>
 
+<script>
+  const logado = localStorage.getItem('usuarioLogado');
+  if (logado !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
+
 <header class="main-header">
   <div class="menu-icon">
     <a href="perfil.html">
@@ -28,9 +35,7 @@
   </div>
 </header>
 
-<main id="conteudo-carrinho">
-  
-</main>
+<main id="conteudo-carrinho"></main>
 
 <script>
   function getCarrinho() {
@@ -104,7 +109,7 @@
         </div>
         <div class="carrinho-resumo">
           <p>Total: R$ ${total.toFixed(2).replace('.', ',')}</p>
-          <button class="btn-comprar">Finalizar compra</button>
+          <button class="btn-comprar" id="btn-finalizar">Finalizar compra</button>
         </div>
       </section>
     `;
@@ -119,13 +124,15 @@
         carregarCarrinhoLocal();
       });
     });
+
     const btnFinalizar = document.getElementById('btn-finalizar');
     if (btnFinalizar) {
       btnFinalizar.addEventListener('click', () => {
         window.location.href = 'checkout.html';
-    });
+      });
+    }
   }
-}
+
   carregarCarrinhoLocal();
 </script>
 

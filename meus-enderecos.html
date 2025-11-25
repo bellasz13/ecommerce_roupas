@@ -42,7 +42,6 @@
     <h1 class="profile-title">Meus endereços</h1>
 
     <div id="lista-enderecos" class="enderecos-lista">
-      <!-- preenchido via JS -->
     </div>
 
     <h2 class="profile-subtitle">Adicionar / editar endereço</h2>
@@ -97,6 +96,11 @@
 
   async function carregarEnderecos() {
     try {
+      if (!idCliente) {
+        listaEnderecos.innerHTML = '<p class="info-text erro">Não foi possível identificar o cliente. Faça login novamente.</p>';
+        return;
+      }
+
       const resp = await fetch(`http://localhost:3000/api/clientes/${idCliente}/enderecos`);
       if (!resp.ok) throw new Error('Erro ao buscar endereços');
 
